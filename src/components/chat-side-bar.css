@@ -1,0 +1,43 @@
+.start-chat-button{
+    background-color: #00796b; /* teal-700*/
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    font: smaller;
+    
+}
+.chatsidebar{
+    background-color: #4db6ac; /* teal-300 */
+    width: 256px;
+    height: 100dvh;
+    box-sizing: border-box;
+    padding: 16px;
+}
+.convo{
+    height: 32px;
+    margin-top: 8px;
+    border: none;
+    border-bottom: 1px solid #00796b;
+    background-color: transparent;
+    outline: none;
+    width: 100%;
+    padding-left: 4px;
+}
+.convo::placeholder {
+    color: #00796b;
+    opacity: 1;
+}
+
+.convo-item{
+    background-color: white;
+    height: 32px;
+    color: #00796b;
+    margin-top: 8px;
+    border-radius: 2px;
+    list-style: none;
+    padding-left: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+}

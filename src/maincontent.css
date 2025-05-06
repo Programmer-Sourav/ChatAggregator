@@ -1,0 +1,38 @@
+.maincontainer{
+    background-color: #b2dfdb;
+    width: 100wh;
+    height: 100dvh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btncontent{
+    margin-left: 16px;
+    background-color: #80cbc4;
+    color: white;
+}
+.btncontent:hover{
+  outline: none;
+  border: none;
+}
+.btncontent:focus{
+outline: none;
+border: none;
+background-color: #00796b;
+}
+.tabcontent{
+    text-align: start;
+    width: auto;
+    display: inline-block;
+}
+.tabholder{
+    margin-top: 8px;
+}
+.chat-window{
+
+}
+.centercontainer{
+    width: 800px;
+    height: auto;
+}

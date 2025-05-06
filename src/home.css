@@ -1,0 +1,17 @@
+.layout {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .sidebar {
+    width: auto;
+    background-color: #4db6ac; /* teal-300 */
+    box-sizing: border-box;
+  }
+  
+  .main-content {
+    flex: 1;
+    box-sizing: border-box;
+    overflow-y: auto; /* scroll if content is long */
+  }
+  

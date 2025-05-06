@@ -1,0 +1,69 @@
+.chatwindow{
+    width: 752px;
+    height: 128px;
+    border-radius: 8px;
+    border: 1px solid #80cbc4;
+    padding: 4px;
+    background-color: #b2dfdb;
+    margin-top: 128px;
+}
+.chat-window-text {
+    width: 98%;
+    height: 75%;
+    border: none;
+    outline: none;
+    text-align: left;       /* Align text to the left */
+    vertical-align: top;    /* For inline elements – not needed here */
+    resize: none;           /* Optional: prevent user resizing */
+    padding: 4px;
+    font-family: inherit;
+    box-sizing: border-box; /* Makes padding fit within width */
+    overflow-y: auto;       /* Allows scrolling if text exceeds height */
+    line-height: 1.5;       /* Optional: improves text spacing */
+    background-color: #b2dfdb;
+}
+.chat-window-text:focus{
+    outline: none;
+    border: none;
+}
+.chat-window-text:hover{
+    outline: none;
+    border: none;
+}
+.chatbottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.chatbottomleft{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.chatbottomright{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.searchbtn{
+    border-radius: 16px;
+    width: 96px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4px;
+    color: #00796b;
+}
+.searchbtn:hover{
+    outline: none;
+    border: none;
+}
+.searchbtn:focus{
+    outline: none;
+    border: none;
+}
+.selectbox{
+    color: #00796b;
+    border: 1px solid #00796b;
+}
