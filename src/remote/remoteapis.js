@@ -66,6 +66,7 @@ export async function sendPromptToGeminiApi(dispatch, dataBody){
      const receivedData = await response.json();
      const receivedContent = receivedData.candidates[0];
      const receivedParts = receivedContent.content.parts;
+     console.log(88877, receivedParts)
      const receivedText = receivedParts[0];
      dispatch({type: "RESPONSE", payload: receivedText})
 

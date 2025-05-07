@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Paperclip, Send } from "lucide-react"
 import "../chat.css"
 import { sendPromptToGeminiApi, sendPromptWithFile } from "../remote/remoteapis"
@@ -14,7 +14,7 @@ export default function ChatBar(){
     const [imageAvailable, setImageAvailable] = useState(false)
     const [filePath, setFilePath] = useState("")
 
-    const { dispatch } = useContext(AppContext);
+    const { state, dispatch } = useContext(AppContext);
 
     const chatID = uuidv4();
 
@@ -58,6 +58,11 @@ export default function ChatBar(){
         dispatch({type: "FILEPATH", payload: filePath})
         }
     }
+    useEffect(()=>{
+        setTextPrompt(state.chatPrompt.promptTitle)
+    }, [state.chatPrompt])
+
+    console.log(1242, state.chatPrompt)
 
     return(
         <div className="chatwindow">
@@ -82,7 +87,7 @@ export default function ChatBar(){
             style={{ display: "none" }}
             onChange={(e)=>{attachFile(e)}}
              />
-                 {textPrompt.length>0 ? <Send color = "#00796b" onClick={sendPromptToApi} style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/> : <Send color = "gray" style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/>}
+                 {textPrompt && textPrompt.length>0 ? <Send color = "#00796b" onClick={sendPromptToApi} style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/> : <Send color = "gray" style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/>}
                 </div>
               </div>
         </div>

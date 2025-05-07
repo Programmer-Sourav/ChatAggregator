@@ -6,7 +6,8 @@
     border: 1px solid #80cbc4;
     padding: 4px;
     background-color: #b2dfdb;
-    margin-top: 128px;
+    bottom: 4px; /* space from bottom */
+    position: fixed;
 }
 .chat-window-text {
     width: 98%;

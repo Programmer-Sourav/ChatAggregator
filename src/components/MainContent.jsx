@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import "../maincontent.css"
 import ChatBar from "./ChatBar";
 import { useParams } from "react-router-dom";
@@ -18,8 +18,12 @@ export default function MainContent(){
     const {id} = useParams();
 
     const { state, dispatch} = useContext(AppContext);
+    const chatRef = useRef(null)
 
-    console.log(551, state.chatText, state.filePath)
+    useEffect(()=>{
+        chatRef.current?.scrollIntoView({behaviour: "smooth"})
+    }, [state.chatText])
+
 
     useEffect(()=>{
         setSelectedCategory("write")
@@ -35,9 +39,15 @@ export default function MainContent(){
           }
     }
 
-    console.log(11111, id, selectedCategory)
+    const sendToChat = (selectedId) =>{
+        const selected = someDummyContents[selectedId-1];
+      dispatch({type: "CHATTEXT",  payload: selected})
+    }
+
+
 
     return(
+        <div className="container">
         <div className="maincontainer"> 
         <div className="centercontainer">
         { state.chatText.length===1 ?
@@ -51,7 +61,7 @@ export default function MainContent(){
             {state.chatText.length===1? 
                someDummyContents.filter((item)=>item.category === selectedCategory).map((eachItem)=>(
                 <ul style={{display: "flex", justifyContent: "flex-start", alignItems: "center"}}>
-                    <li key={eachItem.id} style={{listStyle: "none", width: "auto",backgroundColor:"#80cbc4", padding:"8px", fontSize:"14px"}}>{eachItem.promptTitle}</li>
+                    <li key={eachItem.id} style={{listStyle: "none", width: "auto",backgroundColor:"#80cbc4", padding:"8px", fontSize:"14px"}} onClick={()=>{sendToChat(eachItem.id)}}>{eachItem.promptTitle}</li>
                 </ul>
                ))
                : 
@@ -66,6 +76,7 @@ export default function MainContent(){
               </div>
               </div>
                ))}
+               <div ref={chatRef}/>
                {/* {state.chatText.map((chatItem, index)=>(
                 <div key={index} className="chatagent-container">
                 <div className="chatagent">
@@ -105,14 +116,17 @@ export default function MainContent(){
 })} */}
 
                </div>
+               
             }
          </div>
         </div>
+        
         <div>
           {/* chat window */}
           <ChatBar/>
          </div>
          </div>
+        </div>
         </div>
     )
 }

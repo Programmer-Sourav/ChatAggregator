@@ -21,7 +21,7 @@ function App() {
          {/* <HomePage/> */}
          <Routes>
           <Route path='/' element = {<HomePage/>}/>
-          <Route path='/chat/:id' element= {<MainContent/>}/>
+          <Route path='/chat/:id' element= {<HomePage/>}/>
          </Routes>
     </>
   )

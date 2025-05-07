@@ -4,8 +4,8 @@ export const initialState = {
     //array should be in qa format
     //[{question:"", answer:""}]
     chatText: [{question:" ", answer:" "}],
-    filePath: ""
-   // responseText: []
+    filePath: "",
+    chatPrompt: ""
 }
 
 
@@ -26,5 +26,7 @@ export default function AppReducer(state, action){
         };
      case "FILEPATH": 
      return {...state, filePath: action.payload}   
+     case "CHATTEXT":
+     return {...state, chatPrompt: action.payload}   
     }
 }
