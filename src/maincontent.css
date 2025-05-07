@@ -89,3 +89,23 @@ background-color: #00796b;
     justify-content: flex-start; /* Align left */
     margin-top: 8px;
   }
+  .typed-out{
+    overflow: hidden;
+    border-right: .15em solid gray;
+    white-space: nowrap;
+    font-size: 1.6rem;
+    width: 0;
+    animation: 
+      typing 1s steps(20, end) forwards;
+  }
+  .revealanimation{
+      position: absolute;
+      top: -.5em;
+      left: -1em;
+      width: calc(100% + 2em);
+      height: calc(100% + 1em);
+      animation-name: reveal;
+      animation-duration: 4s;
+      animation-timing-function: ease-out;
+      animation-iteration-count: infinite
+  }

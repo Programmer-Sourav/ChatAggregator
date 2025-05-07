@@ -14,6 +14,7 @@ export default function MainContent(){
     ]
 
     const [selectedCategory, setSelectedCategory] = useState(1);
+    let typedText = "";
 
     const {id} = useParams();
 
@@ -45,6 +46,12 @@ export default function MainContent(){
     }
 
 
+    function startTyping(callback, text, index=0){
+      if(index <text.length){
+        callback(text[index])
+        setTimeout(()=>{startTyping(callback, text, index+1)}, 50)
+      }
+    }
 
     return(
         <div className="container">
@@ -71,7 +78,7 @@ export default function MainContent(){
                 <div className={chatItem.question.trim() !== "" ? "chatuser" : ""}>{chatItem.question!==" " && chatItem.question}{state.filePath? <img src={filePath} alt="uploadedfile" width="80px" height="80px"/>:""}</div>
                 <div key={index} className="chatagent-container">
                 <div className={chatItem.answer!==" " ? "chatagent" : ""}>
-                  <ReactMarkdown>{chatItem.answer.text?.trim() && chatItem.answer.text}</ReactMarkdown>
+                 {chatItem.answer==="loading" ? "Answer Getting Ready" : <ReactMarkdown>{chatItem.answer.text?.trim() && chatItem.answer.text}</ReactMarkdown>}
                 </div>
               </div>
               </div>
