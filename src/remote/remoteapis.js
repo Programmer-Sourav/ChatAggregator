@@ -1,7 +1,53 @@
+import { GoogleGenAI  } from "@google/genai";
+import fs from "fs";
+import path from "path";
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+const ai = new GoogleGenAI({apiKey: apiKey});
+
+
+export async function sendPromptWithFile(dispatch, dataBody){
+ 
+    const filePath = dataBody.file;
+
+    const response = await fetch(filePath);
+    const blob = await response.blob();
+    const reader = new FileReader();
+    reader.onload = async function () {
+    const base64String = reader.result.split(",")[1]; // remove data prefix
+    
+
+    const filePart = {
+        inlineData: {
+          data: base64String,
+          mimeType: "image/png",
+        },
+      };
+
+        const response = await ai.models.generateContent({
+          model: 'gemini-2.0-flash-001',
+          contents: [
+            {
+              role: "user",
+              parts: [
+                { text: dataBody.text },
+                filePart,
+              ],
+            },
+          ],
+        });
+       
+        const receivedData = response;
+        const receivedContent = receivedData.candidates[0];
+        const receivedParts = receivedContent.content.parts;
+        const receivedText = receivedParts[0];
+        dispatch({type: "RESPONSE", payload: receivedText})
+    }
+    reader.readAsDataURL(blob);
+}
 
 export async function sendPromptToGeminiApi(dispatch, dataBody){
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    console.log(333, apiKey, dataBody);
+    
    try{
      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, 
         {
@@ -18,12 +64,9 @@ export async function sendPromptToGeminiApi(dispatch, dataBody){
         }
      )
      const receivedData = await response.json();
-     console.log(444, receivedData)
      const receivedContent = receivedData.candidates[0];
      const receivedParts = receivedContent.content.parts;
      const receivedText = receivedParts[0];
-     console.log(123, receivedContent)
-     console.log(121, receivedText)
      dispatch({type: "RESPONSE", payload: receivedText})
 
    }

@@ -1,6 +1,7 @@
 .chatwindow{
     width: 752px;
-    height: 128px;
+    min-height: 128px;
+    height: auto;
     border-radius: 8px;
     border: 1px solid #80cbc4;
     padding: 4px;
@@ -10,6 +11,7 @@
 .chat-window-text {
     width: 98%;
     height: 75%;
+    min-height: 92px;
     border: none;
     outline: none;
     text-align: left;       /* Align text to the left */
