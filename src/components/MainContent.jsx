@@ -32,7 +32,6 @@ export default function MainContent(){
     }, [])
 
     function autoPromptForAnswer(value){
-        console.log(1111, value)
           if(value===1){
             setSelectedCategory("write")
           }
@@ -87,7 +86,7 @@ export default function MainContent(){
   <ReactMarkdown>
     {
       selectedModel === "Gemini"
-        ? (chatItem.answer?.text?.trim() || "")
+        ? (chatItem.answer?.trim() || "")
         : (chatItem.answer?.trim() || "")
     }
   </ReactMarkdown>

@@ -28,9 +28,7 @@ dispatch({type: "RESPONSE", payload: receivedText})
 
 export async function analyzeImageInputs(dispatch, data){
  const secureUrl = await uploadToCloudinary(data.file)
- console.log(787878, secureUrl)
  if(secureUrl){
-   console.log(6666, data.text, data.file, secureUrl)
   const response = await client.responses.create({
     model: "gpt-4.1",
     input: [
@@ -86,7 +84,8 @@ export async function sendPromptWithFile(dispatch, dataBody){
         const receivedData = response;
         const receivedContent = receivedData.candidates[0];
         const receivedParts = receivedContent.content.parts;
-        const receivedText = receivedParts[0];
+        const receivedText = receivedParts[0].text;
+        console.log(1245, receivedText);
         dispatch({type: "RESPONSE", payload: receivedText})
     }
     reader.readAsDataURL(blob);
@@ -113,7 +112,8 @@ export async function sendPromptToGeminiApi(dispatch, dataBody){
      const receivedContent = receivedData.candidates[0];
      const receivedParts = receivedContent.content.parts;
      console.log(88877, receivedParts)
-     const receivedText = receivedParts[0];
+     const receivedText = receivedParts[0].text;
+     console.log(1245, receivedText);
      dispatch({type: "RESPONSE", payload: receivedText})
 
    }
@@ -146,4 +146,15 @@ async function uploadToCloudinary(blob) {
   const data = await res.json();
 
   return data.secure_url; // This is the public URL you can now use
+}
+
+export async function searchWebByOpenAI(dispatch, dataBody){
+  const response = await client.responses.create({
+    model: "gpt-4.1",
+    tools: [ { type: "web_search_preview" } ],
+    input: dataBody,
+});
+
+const receivedText = response.output_text;
+dispatch({type: "RESPONSE", payload: receivedText})
 }

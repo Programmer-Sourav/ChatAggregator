@@ -1,77 +1,127 @@
-.chatwindow{
-    width: 752px;
-    min-height: 128px;
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid #80cbc4;
-    padding: 4px;
-    background-color: #b2dfdb;
-    bottom: 4px; /* space from bottom */
-    position: fixed;
+.chatwindow {
+  width: 752px;
+  max-width: 95vw;         /* Allow width to scale on smaller screens */
+  min-height: 128px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #80cbc4;
+  padding: 4px;
+  background-color: #b2dfdb;
+  bottom: 4px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
 }
+
+/* Responsive textarea */
 .chat-window-text {
-    width: 98%;
-    height: 75%;
-    min-height: 92px;
-    border: none;
-    outline: none;
-    text-align: left;       /* Align text to the left */
-    vertical-align: top;    /* For inline elements – not needed here */
-    resize: none;           /* Optional: prevent user resizing */
-    padding: 4px;
-    font-family: inherit;
-    box-sizing: border-box; /* Makes padding fit within width */
-    overflow-y: auto;       /* Allows scrolling if text exceeds height */
-    line-height: 1.5;       /* Optional: improves text spacing */
-    background-color: #b2dfdb;
+  width: 98%;
+  height: 75%;
+  min-height: 92px;
+  border: none;
+  outline: none;
+  text-align: left;
+  resize: none;
+  padding: 4px;
+  font-family: inherit;
+  box-sizing: border-box;
+  overflow-y: auto;
+  line-height: 1.5;
+  background-color: #b2dfdb;
 }
-.chat-window-text:focus{
-    outline: none;
-    border: none;
+
+/* Remove borders and outlines */
+.chat-window-text:focus,
+.chat-window-text:hover {
+  outline: none;
+  border: none;
 }
-.chat-window-text:hover{
-    outline: none;
-    border: none;
+
+/* Bottom layout containers */
+.chatbottom,
+.chatbottomleft,
+.chatbottomright {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
 }
-.chatbottom{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
+/* Button styles */
+.searchbtn {
+  border-radius: 16px;
+  width: 96px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4px;
+  color: #00796b;
 }
-.chatbottomleft{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
+.searchbtn:hover,
+.searchbtn:focus {
+  outline: none;
+  border: none;
 }
-.chatbottomright{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
+.searchbtn:disabled {
+  outline: none;
+  border: none;
+  background-color: gray;
 }
-.searchbtn{
-    border-radius: 16px;
-    width: 96px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 4px;
-    color: #00796b;
+
+/* Select box */
+.selectbox {
+  color: #00796b;
+  border: 1px solid #00796b;
 }
-.searchbtn:hover{
-    outline: none;
-    border: none;
+
+/* --------------- Responsive Breakpoints --------------- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .chatwindow {
+    width: 90vw;
+    padding: 8px;
+  }
 }
-.searchbtn:focus{
-    outline: none;
-    border: none;
+
+/* Small Tablets & Phones */
+@media (max-width: 768px) {
+  .chatwindow {
+    width: 95vw;
+    padding: 8px;
+  }
+
+  .chatbottom,
+  .chatbottomleft,
+  .chatbottomright {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .searchbtn {
+    width: 100%;
+    margin: 4px 0;
+  }
+
+  .selectbox {
+    width: 100%;
+  }
 }
-.searchbtn:disabled{
-     outline: none;
-    border: none;
-    background-color: gray;
-}
-.selectbox{
-    color: #00796b;
-    border: 1px solid #00796b;
+
+/* Small Phones and Foldables */
+@media (max-width: 480px) {
+  .chatwindow {
+    width: 98vw;
+    padding: 8px;
+  }
+
+  .chat-window-text {
+    width: 100%;
+    min-height: 100px;
+  }
 }

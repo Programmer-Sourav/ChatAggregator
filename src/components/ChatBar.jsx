@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { Paperclip, Send } from "lucide-react"
 import "../chat.css"
-import { analyzeImageInputs, analyzeInputText, sendPromptToGeminiApi, sendPromptWithFile } from "../remote/remoteapis"
+import { analyzeImageInputs, analyzeInputText, searchWebByOpenAI, sendPromptToGeminiApi, sendPromptWithFile } from "../remote/remoteapis"
 import { useNavigate, useParams } from "react-router-dom"
 import { v4 as uuidv4 } from 'uuid';
 import { AppContext } from "../Context/AppContext"
+import InfoWindow from "./InfoWindow"
 
 
 export default function ChatBar(){
@@ -15,6 +16,11 @@ export default function ChatBar(){
     const [imageAvailable, setImageAvailable] = useState(false)
     const [filePath, setFilePath] = useState("")
     const [simpleFilePath, setSimpleFilePath] = useState("")
+    const [searchPrompt, setSearchPrompt] = useState("")
+    const [show, setShow] = useState(false)
+    const [postion, setPosition] = useState({top: 0, left: 0})
+
+    const btnRef = useRef(null);
 
     const { state, dispatch } = useContext(AppContext);
 
@@ -81,6 +87,7 @@ export default function ChatBar(){
         setFilePath("")
     }
 
+
     
     const sendImagePromptToOpenApi = () =>{
         const data = {text: textPrompt, file: simpleFilePath}
@@ -98,7 +105,21 @@ export default function ChatBar(){
         setTextPrompt(state.chatPrompt.promptTitle)
     }, [state.chatPrompt])
 
- console.log(676767, selectModel)
+
+    const searchWeb = () =>{
+        searchWebByOpenAI(dispatch, textPrompt)
+        navigate(`/chat/${chatID}`)
+        dispatch({type: "TEXT", payload: textPrompt})
+        setTextPrompt("")
+        setFilePath("")
+    }
+
+    useEffect(()=>{
+        if(show && btnRef.current){
+            const rect = btnRef.current.getBoundingClientRect();
+            setPosition({top: rect.top - 40, left: rect.left})
+        }
+    }, [show])
 
     return(
         <>
@@ -112,7 +133,8 @@ export default function ChatBar(){
                         <option value="Gemini">Gemini 2.0 Flash</option>
                         <option value="GPT">GPT 3.5</option>
                     </select>
-                    <button onClick={searchchat} className="searchbtn" disabled>Search</button>
+                    <button ref={btnRef} onMouseEnter={()=>{setShow(true)}} onMouseLeave={()=>{setShow(false)}}  className="searchbtn">Search</button>
+                    {show? <InfoWindow/> : ""}
                 </div>
 
                 <div className="chatbottomright">
@@ -136,9 +158,9 @@ export default function ChatBar(){
                 <div className="chatbottomleft">
                     <select value={selectModel} onChange={(e)=>{setSelectModel(e.target.value)}} className="selectbox">
                         <option value="Gemini">Gemini 2.0 Flash</option>
-                        <option value="GPT">GPT 3.5</option>
+                        <option value="GPT">GPT 4.1</option>
                     </select>
-                    <button onClick={searchchat} className="searchbtn">Search</button>
+                    <button onClick={searchWeb} className="searchbtn">Search</button>
                 </div>
 
                 <div className="chatbottomright">

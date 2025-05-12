@@ -109,3 +109,36 @@ background-color: #00796b;
       animation-timing-function: ease-out;
       animation-iteration-count: infinite
   }
+
+
+
+/* Hide scrollbar in WebKit */
+.maincontainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tablet screens */
+@media (max-width: 1024px) {
+  /* .maincontainer {
+    width: 90vw;
+    margin: 12px auto;
+  } */
+}
+
+/* Small tablets and large phones */
+@media (max-width: 768px) {
+  .maincontainer {
+    width: 95vw;
+    margin: 8px auto;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .maincontainer {
+    width: 98vw;
+    margin: 4px auto;
+    height: 85%; /* optional: increase height to fit more content */
+    flex-direction: column; /* optional if you want vertical stacking */
+  }
+}

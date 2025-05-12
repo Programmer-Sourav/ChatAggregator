@@ -1,0 +1,10 @@
+.infoxbox{
+    width: auto;
+    height: auto;
+    color: blue;
+    font-size: 12px;
+    border: 1px solid blue;
+    background-color: skyblue;
+    padding: "4px 8px";
+    z-index: "10",
+}
