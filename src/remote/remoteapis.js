@@ -1,10 +1,56 @@
 import { GoogleGenAI  } from "@google/genai";
+import OpenAI from "openai";
 import fs from "fs";
 import path from "path";
+
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const openAIKey = import.meta.env.VITE_OPENAI_API_KEY;
 
 const ai = new GoogleGenAI({apiKey: apiKey});
 
+const client = new OpenAI({apiKey: openAIKey, dangerouslyAllowBrowser: true});
+
+
+
+
+
+
+export async function analyzeInputText(dispatch, dataBody){
+const response = await client.responses.create({
+    model: "gpt-4.1",
+    input: dataBody
+});
+
+console.log(1112, dataBody, response.output_text);
+const receivedText = response.output_text;
+dispatch({type: "RESPONSE", payload: receivedText})
+}
+
+export async function analyzeImageInputs(dispatch, data){
+ const secureUrl = await uploadToCloudinary(data.file)
+ console.log(787878, secureUrl)
+ if(secureUrl){
+   console.log(6666, data.text, data.file, secureUrl)
+  const response = await client.responses.create({
+    model: "gpt-4.1",
+    input: [
+        { role: "user", content: data.text },
+        {
+            role: "user",
+            content: [
+                {
+                    type: "input_image", 
+                    image_url: secureUrl,
+                }
+            ],
+        },
+    ],
+});
+console.log(5555, response.output_text, data);
+const receivedText = response.output_text;
+dispatch({type: "RESPONSE", payload: receivedText})
+}
+}
 
 export async function sendPromptWithFile(dispatch, dataBody){
  
@@ -83,4 +129,21 @@ async function sendPromptToGPTApi(){
       catch(error){
       throw error;
       }
+}
+
+
+async function uploadToCloudinary(blob) {
+  console.log(8888, blob)
+  const formData = new FormData();
+  formData.append("file", blob);
+  formData.append("upload_preset", "imgupload"); // Configure in Cloudinary dashboard
+
+  const res = await fetch('https://api.cloudinary.com/v1_1/dalql4nhr/image/upload', {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await res.json();
+
+  return data.secure_url; // This is the public URL you can now use
 }

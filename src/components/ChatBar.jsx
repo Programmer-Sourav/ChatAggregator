@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import { Paperclip, Send } from "lucide-react"
 import "../chat.css"
-import { sendPromptToGeminiApi, sendPromptWithFile } from "../remote/remoteapis"
+import { analyzeImageInputs, analyzeInputText, sendPromptToGeminiApi, sendPromptWithFile } from "../remote/remoteapis"
 import { useNavigate, useParams } from "react-router-dom"
 import { v4 as uuidv4 } from 'uuid';
 import { AppContext } from "../Context/AppContext"
+
 
 export default function ChatBar(){
   
@@ -13,6 +14,7 @@ export default function ChatBar(){
     const [textPrompt, setTextPrompt] = useState("")
     const [imageAvailable, setImageAvailable] = useState(false)
     const [filePath, setFilePath] = useState("")
+    const [simpleFilePath, setSimpleFilePath] = useState("")
 
     const { state, dispatch } = useContext(AppContext);
 
@@ -28,8 +30,15 @@ export default function ChatBar(){
         const file =  e.target.files[0];
         if (file) {
             const fileUrl = URL.createObjectURL(file);
+            if(selectModel==="Gemini"){
             setFilePath(fileUrl);
             setImageAvailable(true);
+            }
+            else{
+              setFilePath(fileUrl);
+              setSimpleFilePath(file)
+              setImageAvailable(true);  
+            }
           }
     }
 
@@ -45,7 +54,7 @@ export default function ChatBar(){
         setTextPrompt("")
         setFilePath("")
     }
-    console.log(666, filePath)
+   
 
     const sendImagePromptToApi = () =>{
         const data = {text: textPrompt, file: filePath}
@@ -58,15 +67,70 @@ export default function ChatBar(){
         dispatch({type: "FILEPATH", payload: filePath})
         }
     }
+
+    const sendPromptToOpenApi = () =>{
+          if(filePath===""){
+        analyzeInputText(dispatch, textPrompt)
+        navigate(`/chat/${chatID}`)
+        dispatch({type: "TEXT", payload: textPrompt})
+        }
+        else{
+            sendImagePromptToOpenApi()
+        }
+        setTextPrompt("")
+        setFilePath("")
+    }
+
+    
+    const sendImagePromptToOpenApi = () =>{
+        const data = {text: textPrompt, file: simpleFilePath}
+        analyzeImageInputs(dispatch, data)
+        if(id)
+        dispatch({type: "TEXT", payload: textPrompt})
+        else{
+        navigate(`/chat/${chatID}`)
+        dispatch({type: "TEXT", payload: textPrompt}) 
+        dispatch({type: "FILEPATH", payload: filePath})
+        }
+    }
+
     useEffect(()=>{
         setTextPrompt(state.chatPrompt.promptTitle)
     }, [state.chatPrompt])
 
-    console.log(1242, state.chatPrompt)
+ console.log(676767, selectModel)
 
     return(
+        <>
+        {selectModel==="Gemini" ? 
         <div className="chatwindow">
               {imageAvailable && filePath ? <img src={filePath} alt="uploadedfile" width="80px" height="80px"/>:""}
+              <textarea value={textPrompt} className="chat-window-text" placeholder="Type your message here..." onChange={(e)=>{setTextPrompt(e.target.value)}}/>
+              <div className="chatbottom">
+                <div className="chatbottomleft">
+                    <select value={selectModel} onChange={(e)=>{setSelectModel(e.target.value), {type: "SELECTED_LLM", payload: selectModel}}} className="selectbox">
+                        <option value="Gemini">Gemini 2.0 Flash</option>
+                        <option value="GPT">GPT 3.5</option>
+                    </select>
+                    <button onClick={searchchat} className="searchbtn" disabled>Search</button>
+                </div>
+
+                <div className="chatbottomright">
+                <label htmlFor="file-upload" style={{ cursor: "pointer" }}>
+               <Paperclip color="#00796b" style={{ width: "24px", height: "24px", marginLeft: "8px" }} />
+              </label>
+            <input
+            id="file-upload"
+            type="file"
+            style={{ display: "none" }}
+            onChange={(e)=>{attachFile(e)}}
+             />
+                 {textPrompt && textPrompt.length>0 ? <Send color = "#00796b" onClick={sendPromptToApi} style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/> : <Send color = "gray" style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/>}
+                </div>
+              </div>
+        </div> : 
+        <div className="chatwindow">
+              {imageAvailable && filePath ? <img src={filePath} alt="uploadedfile" width="80px" height="80px"/> :""}
               <textarea value={textPrompt} className="chat-window-text" placeholder="Type your message here..." onChange={(e)=>{setTextPrompt(e.target.value)}}/>
               <div className="chatbottom">
                 <div className="chatbottomleft">
@@ -87,9 +151,11 @@ export default function ChatBar(){
             style={{ display: "none" }}
             onChange={(e)=>{attachFile(e)}}
              />
-                 {textPrompt && textPrompt.length>0 ? <Send color = "#00796b" onClick={sendPromptToApi} style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/> : <Send color = "gray" style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/>}
+                 {textPrompt && textPrompt.length>0 ? <Send color = "#00796b" onClick={sendPromptToOpenApi} style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/> : <Send color = "gray" style={{width: "24px", height: "24px", marginLeft: "8px", marginRight: "8px"}}/>}
                 </div>
               </div>
-        </div>
+        </div>}
+        
+        </>
     )
 }

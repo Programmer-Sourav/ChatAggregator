@@ -19,6 +19,7 @@ export default function MainContent(){
     const {id} = useParams();
 
     const { state, dispatch} = useContext(AppContext);
+    const selectedModel = state.selectedModel;
     const chatRef = useRef(null)
 
     useEffect(()=>{
@@ -53,6 +54,8 @@ export default function MainContent(){
       }
     }
 
+    console.log(4444, state.chatText)
+
     return(
         <div className="container">
         <div className="maincontainer"> 
@@ -78,7 +81,17 @@ export default function MainContent(){
                 <div className={chatItem.question.trim() !== "" ? "chatuser" : ""}>{chatItem.question!==" " && chatItem.question}{state.filePath? <img src={filePath} alt="uploadedfile" width="80px" height="80px"/>:""}</div>
                 <div key={index} className="chatagent-container">
                 <div className={chatItem.answer!==" " ? "chatagent" : ""}>
-                 {chatItem.answer==="loading" ? "Answer Getting Ready" : <ReactMarkdown>{chatItem.answer.text?.trim() && chatItem.answer.text}</ReactMarkdown>}
+                {chatItem.answer === "loading" ? (
+  "Answer Getting Ready"
+) : (
+  <ReactMarkdown>
+    {
+      selectedModel === "Gemini"
+        ? (chatItem.answer?.text?.trim() || "")
+        : (chatItem.answer?.trim() || "")
+    }
+  </ReactMarkdown>
+)}
                 </div>
               </div>
               </div>
