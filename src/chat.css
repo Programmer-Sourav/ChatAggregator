@@ -1,6 +1,6 @@
 .chatwindow {
-  width: 752px;
-  max-width: 95vw;         /* Allow width to scale on smaller screens */
+  max-width: 752px;
+  width: 95vw;         /* Allow width to scale on smaller screens */
   min-height: 128px;
   height: auto;
   border-radius: 8px;
@@ -84,8 +84,10 @@
 /* Tablets */
 @media (max-width: 1024px) {
   .chatwindow {
-    width: 90vw;
+    max-width: 90%;
+    width: 592px;
     padding: 8px;
+    height: 256px;
   }
 }
 

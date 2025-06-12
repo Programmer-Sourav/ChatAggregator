@@ -1,0 +1,145 @@
+.container{
+    display:flex;
+    flex-direction: column;
+    background-color: #b2dfdb;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* disable horizontal scrolling */
+}
+.maincontainer {
+    background-color: #b2dfdb;
+    width: 70vw; /* fix 100wh -> 100vw */
+    height: 76%;
+    margin: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* align-items: flex-start; */ /* Remove this line or change to flex-start if you want top alignment */
+    border: 1px solid #00796b;
+    border-radius: 8px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-x: hidden; /* disable horizontal scrolling */
+}
+.maincontainer::-webkit-scrollbar {
+    display: none;
+  }
+.btncontent{
+    margin-left: 16px;
+    background-color: #80cbc4;
+    color: white;
+}
+.btncontent:hover{
+  outline: none;
+  border: none;
+}
+.btncontent:focus{
+outline: none;
+border: none;
+background-color: #00796b;
+}
+.tabcontent{
+    text-align: start;
+    width: auto;
+    display: inline-block;
+}
+.tabholder{
+    margin-top: 8px;
+}
+.chat-window{
+
+}
+.centercontainer{
+    width: 90%;
+    max-width: 800px;
+    height: auto;
+}
+.chatcontent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto; /* or scroll if needed */
+    max-width: 100%;
+    box-sizing: border-box;
+    width: 700px;
+    overflow-x: hidden; /* disable horizontal scrolling */
+}
+.chatuser {
+    background-color: #80cbc4;
+    max-width: 80%;
+    padding: 4px 8px;
+    margin-left: auto;           /* pushes it to the right */
+    border-radius: 8px;
+    width: fit-content;          /* takes only the space needed */
+    word-break: break-word;      /* wraps long words if needed */
+  }
+  .chatagent {
+    background-color: #e0f2f1; /* light teal */
+    display: inline-block;
+    padding: 16px 16px 16px 16px;
+    max-width: 100%;
+    border-radius: 8px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin-bottom: 16px;
+  }
+  .chatagent-container {
+    display: flex;
+    justify-content: flex-start; /* Align left */
+    margin-top: 8px;
+  }
+  .typed-out{
+    overflow: hidden;
+    border-right: .15em solid gray;
+    white-space: nowrap;
+    font-size: 1.6rem;
+    width: 0;
+    animation: 
+      typing 1s steps(20, end) forwards;
+  }
+  .revealanimation{
+      position: absolute;
+      top: -.5em;
+      left: -1em;
+      width: calc(100% + 2em);
+      height: calc(100% + 1em);
+      animation-name: reveal;
+      animation-duration: 4s;
+      animation-timing-function: ease-out;
+      animation-iteration-count: infinite
+  }
+
+
+
+/* Hide scrollbar in WebKit */
+.maincontainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tablet screens */
+@media (max-width: 1024px) {
+  /* .maincontainer {
+    width: 90vw;
+    margin: 12px auto;
+  } */
+}
+
+/* Small tablets and large phones */
+@media (max-width: 768px) {
+  .maincontainer {
+    width: 95vw;
+    margin: 8px auto;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .maincontainer {
+    width: 98vw;
+    margin: 4px auto;
+    height: 85%; /* optional: increase height to fit more content */
+    flex-direction: column; /* optional if you want vertical stacking */
+  }
+}
