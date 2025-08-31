@@ -6,7 +6,8 @@ export const initialState = {
     chatText: [{question:" ", answer:" "}],
     filePath: "",
     chatPrompt: "",
-    selectedModel: ""
+    selectedModel: "",
+    medicalChat: ""
 }
 
 
@@ -15,7 +16,7 @@ export default function AppReducer(state, action){
     case "TEXT": 
     return {...state, chatText: [...state.chatText, {question: action.payload, answer: "loading"}]}
     case "RESPONSE":
-        const foundItem = state.chatText.find((item) => item.answer === "loading");
+        { const foundItem = state.chatText.find((item) => item.answer === "loading");
         if (!foundItem) return state; // Optional safety check
       
         return {
@@ -24,12 +25,14 @@ export default function AppReducer(state, action){
             ...state.chatText.filter((item) => item !== foundItem),
             { ...foundItem, answer: action.payload }
           ]
-        };
+        }; }
      case "FILEPATH": 
      return {...state, filePath: action.payload}   
      case "CHATTEXT":
      return {...state, chatPrompt: action.payload}   
      case "SELECTED_LLM": 
      return {...state, selectedModel: action.payload}
+     case "MEDICALTEXT": 
+     return {...state, medicalChat : action.payload}
     }
 }

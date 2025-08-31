@@ -1,0 +1,19 @@
+.containermh{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+.inputbox{
+    width: 512px;
+    height: 44px;
+    border: "1px solid grey";
+    margin: 16px;
+}
+.answersection01{
+    margin: 16px;
+    padding: 8px;
+    border: "1px solid grey";
+    background-color: beige;
+    border-radius: 16px;
+}

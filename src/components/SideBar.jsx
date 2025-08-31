@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import "./chat-side-bar.css"
+import { useNavigate } from "react-router-dom";
 
 export default function SideBar(){
 
    const [searchValue, setSearchValue] = useState("")
    const [listOfConvo, setListOfConvo] = useState([])
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const navigation = useNavigate();
 
    const preData = [{id: 1, title: "Welcome to freeChat", content: "We are providing Gemini and OpenAI free API together in a single application."},
      {id:2, title: "FaQs", content: [{question:"Is it Free?", answer: "Yes it is free from our side."}, 
@@ -19,6 +22,10 @@ export default function SideBar(){
    console.log(111, listOfConvo)
     const startANewChat = () =>{
 
+    }
+
+    const startAMedChat = () =>{
+       navigation("/medical")
     }
 
     return(
@@ -35,6 +42,7 @@ export default function SideBar(){
       <div className={`chatsidebar ${isSidebarOpen ? 'open' : ''}`}>
         <h2 style={{ color: "#FFFFFF" }}>freeCHAT</h2>
         <button onClick={startANewChat} className="start-chat-button">New Chat</button>
+        <button onClick={startAMedChat} className="start-chat-button">Medical AI</button>
         <input
           type="search"
           value={searchValue}

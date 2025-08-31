@@ -15,7 +15,7 @@ const client = new OpenAI({apiKey: openAIKey, dangerouslyAllowBrowser: true});
 
 
 
-export async function analyzeInputText(dispatch, dataBody){
+export async function analyzeInputText(dispatch, dataBody, ifMedQuery){
 const response = await client.responses.create({
     model: "gpt-4.1",
     input: dataBody
@@ -23,8 +23,13 @@ const response = await client.responses.create({
 
 console.log(1112, dataBody, response.output_text);
 const receivedText = response.output_text;
+if(!ifMedQuery)
 dispatch({type: "RESPONSE", payload: receivedText})
+else 
+dispatch({type: "MEDICALTEXT", payload: receivedText})  
 }
+
+
 
 export async function analyzeImageInputs(dispatch, data){
  const secureUrl = await uploadToCloudinary(data.file)
@@ -93,6 +98,7 @@ export async function sendPromptWithFile(dispatch, dataBody){
 
 export async function sendPromptToGeminiApi(dispatch, dataBody){
     
+   // eslint-disable-next-line no-useless-catch
    try{
      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, 
         {

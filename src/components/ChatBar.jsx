@@ -76,7 +76,7 @@ export default function ChatBar(){
 
     const sendPromptToOpenApi = () =>{
           if(filePath===""){
-        analyzeInputText(dispatch, textPrompt)
+        analyzeInputText(dispatch, textPrompt, false)
         navigate(`/chat/${chatID}`)
         dispatch({type: "TEXT", payload: textPrompt})
         }

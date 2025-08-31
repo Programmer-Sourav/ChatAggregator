@@ -8,6 +8,7 @@ import ChatBar from './components/ChatBar'
 import HomePage from './pages/HomePage'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
+import MedicalHelp from './components/MedicalHelp'
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
          <Routes>
           <Route path='/' element = {<HomePage/>}/>
           <Route path='/chat/:id' element= {<HomePage/>}/>
+          <Route path='/medical' element = {<MedicalHelp/>}/>
          </Routes>
     </>
   )
