@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import MedicalHelp from './components/MedicalHelp'
+import DummyForm from './components/DummyForm'
 
 function App() {
   
@@ -24,6 +25,7 @@ function App() {
           <Route path='/' element = {<HomePage/>}/>
           <Route path='/chat/:id' element= {<HomePage/>}/>
           <Route path='/medical' element = {<MedicalHelp/>}/>
+          <Route path='/dummy' element = {<DummyForm/>}/>
          </Routes>
     </>
   )

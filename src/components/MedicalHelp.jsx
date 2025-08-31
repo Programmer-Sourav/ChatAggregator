@@ -106,26 +106,36 @@ export default function MedicalHelp() {
         <div className="containermh"> 
             <h1>Ask AI for Health</h1>
             <p><span><strong>Disclaimer:</strong> </span><span>This is not a diagnosis. It can be used simply as a guideline. Please visit Doctors and do tests for correct analysis of your health and long life!</span></p>
-
-            <label> 
-                Enter Your Name: 
-                <input type="text" className="inputbox" value={username} onChange={(e)=>{setUserName(e.target.value)}}/>
+            <div className="flex w-full m-4">
+            <label className="w-[30%] text-black font-semibold p-4">
+                  Enter Your Name:
             </label>
-             <label> 
-                Enter Symtomps: 
-                <textarea rows={8} cols={24} className="inputbox" value={symptoms} onChange={(e)=>{setSymptoms(e.target.value)}}/>
-            </label>
-               <label> 
-                Have You visited any Doctor or any medical history: 
-                <input type="text" className="inputbox" value={doctorsInput} onChange={(e)=>{setDoctorsInput(e.target.value)}}/>
-            </label>
-             <label> 
-                What is your Age: 
-                <input type="text" className="inputbox" value={ageInput} onChange={(e)=>{setAgeInput(e.target.value)}}/>
-            </label>
-             <label> 
-                How long you are having this problem?  
-                <select value={duration}  className="inputbox" onChange={(e)=>{handleDuration(e.target.value)}}>
+           <input
+             type="text"
+             className="w-1/2 border border-gray-500 border-solid p-4 rounded-lg"
+             value={username}
+             onChange={(e) => setUserName(e.target.value)}
+           />
+           </div>
+             <div className="flex w-full m-4">
+             <label className="w-[30%] text-black font-semibold p-4"> 
+                Enter Symtomps: </label>
+                <textarea rows={4} cols={24} className="w-1/2 border border-gray-500 border-solid p-4 rounded-lg" value={symptoms} onChange={(e)=>{setSymptoms(e.target.value)}}/>
+            </div>
+            <div className="flex w-full m-4">
+               <label className="w-[30%] text-black font-semibold p-4"> 
+                Have You visited any Doctor or any medical history: </label>
+                <input type="text" className="w-1/2 border border-gray-500 border-solid p-4 rounded-lg" value={doctorsInput} onChange={(e)=>{setDoctorsInput(e.target.value)}}/>
+            </div>
+            <div className="flex w-full m-4">
+             <label className="w-[30%] text-black font-semibold p-4"> 
+                What is your Age:  </label>
+                <input type="text" className="w-1/2 border border-gray-500 border-solid p-4 rounded-lg" value={ageInput} onChange={(e)=>{setAgeInput(e.target.value)}}/>
+           </div>
+           <div className="flex w-full m-4">
+             <label className="w-[30%] text-black font-semibold p-4"> 
+                How long you are having this problem?   </label>
+                <select value={duration}  className="w-1/2 border border-gray-500 border-solid p-4 rounded-lg" onChange={(e)=>{handleDuration(e.target.value)}}>
                      <option value="">Select duration</option>
                     <option value="2">Less than 3 days</option>
                     <option value="4">Less than 5 days</option>
@@ -149,8 +159,8 @@ export default function MedicalHelp() {
                     <option value="700">More than or near 2 years</option>
                     <option value="1000">More than or near 3 years</option>
                 </select>
-            </label>
-            <button onClick={submitDetails} className="inputbox">Submit and ask AI</button>
+           </div>
+            <button onClick={submitDetails} className="bg-zinc-800 text-white">Submit and ask AI</button>
             <div className="answersection01">
             {buttonClicked && !medicalResponse ? "Answer is getting Ready... Please wait..." :  <ReactMarkdown>
                 {medicalResponse}
