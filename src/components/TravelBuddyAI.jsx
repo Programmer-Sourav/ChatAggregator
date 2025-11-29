@@ -20,7 +20,7 @@ export default function TravelBuddyAI() {
     const [vehicalType, setVehicalType] = useState("")
 
     const { state, dispatch } = useContext(AppContext);
-    const medicalResponse = state.medicalChat;
+    const travelAIResponse = state.travelChat;
 
     const handleDuration = (durationValue) => {
     setDuration(durationValue);
@@ -201,8 +201,8 @@ export default function TravelBuddyAI() {
            </div>
             <button onClick={submitDetails} className="bg-zinc-800 text-white">Submit and ask AI</button>
             <div className="answersection01">
-            {buttonClicked && !medicalResponse ? "Answer is getting Ready...It may take 30 secs to 2 mins... Please wait..." :  <ReactMarkdown>
-                {medicalResponse}
+            {buttonClicked && !travelAIResponse ? "Answer is getting Ready...It may take 30 secs to 2 mins... Please wait..." :  <ReactMarkdown>
+                {travelAIResponse}
                 </ReactMarkdown>}
             </div>
         </div>
