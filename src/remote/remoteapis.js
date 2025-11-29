@@ -21,9 +21,9 @@ const response = await client.responses.create({
     input: dataBody
 });
 
-//console.log(1112, dataBody, response.output_text);
+console.log(1112, dataBody, response.output_text, ifMedQuery, ifTravelBuddy);
 const receivedText = response.output_text;
-if(!ifMedQuery || !ifTravelBuddy)
+if(!ifMedQuery && !ifTravelBuddy)
 dispatch({type: "RESPONSE", payload: receivedText})
 
 else if (ifTravelBuddy)
