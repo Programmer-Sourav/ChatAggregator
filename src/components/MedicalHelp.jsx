@@ -99,7 +99,7 @@ export default function MedicalHelp() {
       }
       const constructedQuery = `User's name is ${queryData["username"]} of age ${queryData["userage"]}. ${queryData["username"]} has these symptoms ${queryData["symptoms"]} for last ${queryData["duration"]} and his visit or medical history with doctor mentioned as ${queryData["doctorsInput"]}. What could be the possible health issue user is facing and what stage it may be in? Also if duration is less than or around 2 weeks suggest some home remedies with a caution that he should visit the Doctor and shouldn't try home remedies more than 7 days even if it is easing his troubles. It is because, user may not have immediate time to visit a Doctor or may not get the appointment in a day or two.`
       setButtonClicked(buttonClicked=>!buttonClicked)
-      analyzeInputText(dispatch, constructedQuery, true);  
+      analyzeInputText(dispatch, constructedQuery, true, false);  
     }
 
     return(

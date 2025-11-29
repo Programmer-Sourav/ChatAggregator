@@ -7,7 +7,8 @@ export const initialState = {
     filePath: "",
     chatPrompt: "",
     selectedModel: "",
-    medicalChat: ""
+    medicalChat: "",
+    travelChat: ""
 }
 
 
@@ -34,5 +35,7 @@ export default function AppReducer(state, action){
      return {...state, selectedModel: action.payload}
      case "MEDICALTEXT": 
      return {...state, medicalChat : action.payload}
+     case "TRAVELTEXT":
+     return {...state, travelChat: action.payload} 
     }
 }

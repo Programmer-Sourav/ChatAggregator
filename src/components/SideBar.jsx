@@ -19,13 +19,17 @@ export default function SideBar(){
      setListOfConvo([...listOfConvo, ...preData])
    }, [])
 
-   console.log(111, listOfConvo)
+   //console.log(111, listOfConvo)
     const startANewChat = () =>{
 
     }
 
     const startAMedChat = () =>{
        navigation("/medical")
+    }
+
+    const startATravelChat = () =>{
+      navigation("/travelai")
     }
 
     return(
@@ -43,6 +47,7 @@ export default function SideBar(){
         <h2 style={{ color: "#FFFFFF" }}>freeCHAT</h2>
         <button onClick={startANewChat} className="start-chat-button">New Chat</button>
         <button onClick={startAMedChat} className="start-chat-button">Medical AI</button>
+        <button onClick={startATravelChat} className="start-chat-button">TravelBuddy AI</button>
         <input
           type="search"
           value={searchValue}

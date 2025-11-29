@@ -15,16 +15,20 @@ const client = new OpenAI({apiKey: openAIKey, dangerouslyAllowBrowser: true});
 
 
 
-export async function analyzeInputText(dispatch, dataBody, ifMedQuery){
+export async function analyzeInputText(dispatch, dataBody, ifMedQuery, ifTravelBuddy){
 const response = await client.responses.create({
     model: "gpt-4.1",
     input: dataBody
 });
 
-console.log(1112, dataBody, response.output_text);
+//console.log(1112, dataBody, response.output_text);
 const receivedText = response.output_text;
-if(!ifMedQuery)
+if(!ifMedQuery || !ifTravelBuddy)
 dispatch({type: "RESPONSE", payload: receivedText})
+
+else if (ifTravelBuddy)
+dispatch({type: "TRAVELTEXT", payload: receivedText})
+
 else 
 dispatch({type: "MEDICALTEXT", payload: receivedText})  
 }
