@@ -21,7 +21,7 @@ export default function TravelBuddyAI() {
 
     const { state, dispatch } = useContext(AppContext);
     const travelAIResponse = state.travelChat;
-
+  
     const handleDuration = (durationValue) => {
     setDuration(durationValue);
 
